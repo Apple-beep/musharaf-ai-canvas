@@ -10,6 +10,8 @@ All colors MUST be HSL.
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    --vignette-top: 0.08;
+    --vignette-bottom: 0.4;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -101,5 +103,45 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .font-heading {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .glass-card {
+    @apply rounded-[1.75rem] border border-white/10 bg-white/5 backdrop-blur-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition duration-300 hover:border-neon-cyan/40 hover:shadow-glow;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, rgba(80, 220, 255, 1) 0%, rgba(192, 132, 252, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .magnetic-btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-medium uppercase tracking-[0.28em] transition duration-300 hover:-translate-y-0.5 hover:border-neon-cyan/40 hover:text-foreground;
+  }
+
+  .section-heading {
+    @apply font-heading text-3xl font-semibold text-foreground md:text-4xl;
+  }
+
+  .bg-mesh {
+    background-image: radial-gradient(circle at 20% 20%, rgba(80, 220, 255, 0.25), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(192, 132, 252, 0.22), transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(80, 220, 255, 0.18), transparent 50%);
+  }
+
+  .glow-ring {
+    box-shadow: inset 0 0 40px rgba(80, 220, 255, 0.25);
   }
 }

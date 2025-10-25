@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { FileDown, ExternalLink } from "lucide-react";
+import { profile } from "@/data/profile";
 
 const Resume = () => {
   return (
@@ -10,7 +11,7 @@ const Resume = () => {
             <div className="space-y-2">
               <h1 className="font-heading text-5xl font-bold">Resume</h1>
               <p className="text-muted-foreground">
-                Musharaf Khan Pathan • AI Engineer & CS Major
+                {profile.name} • Creative technologist & CS major @ Illinois Tech
               </p>
             </div>
             <div className="flex gap-3">

@@ -37,8 +37,13 @@ const Projects = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                className={index === 0 ? "lg:col-span-2" : ""}
+                highlight={index === 0}
+              />
             ))}
           </div>
 
