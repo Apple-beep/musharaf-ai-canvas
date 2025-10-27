@@ -10,6 +10,20 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
+    id: "colorado-resilience",
+    title: "Software Engineer Intern",
+    organization: "Colorado Resilience",
+    location: "Remote – Colorado",
+    period: "Oct 2025 – Present",
+    startDate: "2025-10",
+    description: [
+      "Built and deployed ReactJS frontend components with responsive design, state management, and cross-browser compatibility",
+      "Developed Flask/Python REST APIs from Swagger specifications with secure routing, database integration, and error handling",
+      "Configured Git, Ubuntu, VirtualBox, and AWS environments to support CI/CD pipelines and collaborative development",
+      "Contributed to software architecture and change management by updating documentation for scalability and compliance"
+    ]
+  },
+  {
     id: "ecocar",
     title: "CAV Team Member",
     organization: "EcoCAR EV Challenge",

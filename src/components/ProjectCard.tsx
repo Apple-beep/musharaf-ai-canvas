@@ -34,12 +34,7 @@ export const ProjectCard = ({ project, className, highlight = false }: ProjectCa
             )}
           >
             <AspectRatio ratio={16 / (highlight ? 7.5 : 9)}>
-              <img
-                src={project.image}
-                alt={project.imageAlt}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
+              <div className="h-full w-full bg-black" />
             </AspectRatio>
             <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
           </div>

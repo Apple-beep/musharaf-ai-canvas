@@ -7,6 +7,7 @@ export const profile = {
   location: "Chicago, Illinois",
   openTo: "Open to SWE, AI, Data roles",
   email: "mpathan2@hawk.illinoistech.edu",
+  avatarUrl: "/assets/images/musharaf-khan-pathan.jpg",
   phone: "(480) 996-7675",
   linkedin: "https://www.linkedin.com/in/musharaf-khan-pathan",
   github: "https://github.com/Apple-beep",

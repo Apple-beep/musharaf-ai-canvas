@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AvatarUpload from "@/components/AvatarUpload";
 import { profile } from "@/data/profile";
 
 const socials = [
@@ -12,8 +11,7 @@ const socials = [
 ];
 
 export const Hero = () => {
-  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
-  const [pendingAvatar, setPendingAvatar] = useState<string | null>(null);
+  const heroAvatar = profile.avatarUrl ?? "/placeholder.svg";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -27,11 +25,6 @@ export const Hero = () => {
     };
 
     window.addEventListener("pointermove", handlePointerMove);
-    const storedAvatar =
-      typeof window !== "undefined" ? window.localStorage.getItem("mkp-avatar") : null;
-    if (storedAvatar) {
-      setAvatarSrc(storedAvatar);
-    }
 
     return () => window.removeEventListener("pointermove", handlePointerMove);
   }, []);
@@ -46,79 +39,6 @@ export const Hero = () => {
     { label: "Pronouns", value: profile.pronouns },
     { label: "Opportunities", value: "SWE · AI · Data" },
   ];
-
-  const displayAvatar = pendingAvatar ?? avatarSrc ?? null;
-
-  const resetPendingAvatar = () => {
-    setPendingAvatar(null);
-  };
-
-  const handleFileSelect = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result === "string") {
-        setPendingAvatar(result);
-      }
-    };
-    reader.onerror = () => {
-      alert("Unable to read the selected image. Please try another file.");
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleAvatarSave = async () => {
-    if (!pendingAvatar) return;
-    try {
-      const circularDataUrl = await createCircularAvatar(pendingAvatar);
-      setAvatarSrc(circularDataUrl);
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("mkp-avatar", circularDataUrl);
-      }
-      resetPendingAvatar();
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong while processing the image. Please try another file.");
-    }
-  };
-
-  const createCircularAvatar = (dataUrl: string) =>
-    new Promise<string>((resolve, reject) => {
-      const image = new Image();
-      image.crossOrigin = "anonymous";
-      image.onload = () => {
-        const size = Math.min(image.width, image.height);
-        const canvas = document.createElement("canvas");
-        const dimension = 512;
-        canvas.width = dimension;
-        canvas.height = dimension;
-        const context = canvas.getContext("2d");
-        if (!context) {
-          reject(new Error("Canvas context not available"));
-          return;
-        }
-
-        const sx = (image.width - size) / 2;
-        const sy = (image.height - size) / 2;
-
-        context.clearRect(0, 0, dimension, dimension);
-        context.save();
-        context.beginPath();
-        context.arc(dimension / 2, dimension / 2, dimension / 2, 0, Math.PI * 2);
-        context.closePath();
-        context.clip();
-        context.drawImage(image, sx, sy, size, size, 0, 0, dimension, dimension);
-        context.restore();
-
-        resolve(canvas.toDataURL("image/png"));
-      };
-      image.onerror = () => reject(new Error("Unable to load image"));
-      image.src = dataUrl;
-    });
-
-  const handleAvatarCancel = () => {
-    resetPendingAvatar();
-  };
 
   return (
     <section id="home" className="relative overflow-hidden pt-28 pb-28 md:pt-36">
@@ -234,26 +154,15 @@ export const Hero = () => {
         </div>
 
         <div className="relative flex w-full min-h-[480px] flex-col items-center text-center">
-          <AvatarUpload size={480} src={displayAvatar ?? undefined} onChange={handleFileSelect} />
-          {pendingAvatar && (
-            <div className="mt-4 flex items-center gap-3">
-              <Button
-                size="sm"
-                className="rounded-full bg-neon-cyan/80 px-5 text-slate-900 transition hover:bg-neon-cyan"
-                onClick={handleAvatarSave}
-              >
-                Save
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="rounded-full border-white/20 bg-black/30 text-muted-foreground transition hover:text-foreground"
-                onClick={handleAvatarCancel}
-              >
-                Cancel
-              </Button>
-            </div>
-          )}
+          <div className="group relative flex h-[min(420px,70vw)] w-[min(420px,70vw)] items-center justify-center rounded-full ring-1 ring-white/10 shadow-[0_0_120px_rgba(80,220,255,0.45)]">
+            <img
+              src={heroAvatar}
+              alt="Portrait of Musharaf Khan Pathan"
+              className="h-full w-full rounded-full object-cover brightness-[1.08] contrast-105 transition duration-300 group-hover:brightness-[1.15] group-hover:contrast-110"
+              style={{ objectPosition: "50% 50%" }}
+            />
+            <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-cyan-400/0 via-cyan-400/0 to-cyan-400/[0.06]" />
+          </div>
         </div>
       </div>
     </section>

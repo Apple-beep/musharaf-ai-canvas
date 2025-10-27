@@ -44,12 +44,7 @@ const Skills = () => {
             >
               <div className="relative">
                 <AspectRatio ratio={16 / 9}>
-                  <img
-                    src={category.image}
-                    alt={category.imageAlt}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                  <div className="h-full w-full bg-black" />
                 </AspectRatio>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-background/30 to-transparent" />
                 <span className="absolute left-5 top-5 inline-flex items-center rounded-full border border-white/10 bg-black/35 px-4 py-1 text-[0.7rem] uppercase tracking-[0.32em] text-white/80 backdrop-blur">

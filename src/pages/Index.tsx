@@ -96,13 +96,7 @@ const Index = () => {
                 </div>
 
                 <div className="relative flex flex-col justify-between border-t border-white/10 bg-black/25 lg:border-l lg:border-t-0">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1400&q=80"
-                      alt="Atmospheric workspace with glowing projections"
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
                     <div className="absolute bottom-8 left-8 right-8">
                       <p className="text-[0.65rem] uppercase tracking-[0.32em] text-white/70">
@@ -153,13 +147,7 @@ const Index = () => {
                     key={category.category}
                     className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-2xl transition hover:border-neon-cyan/40 hover:shadow-[0_0_45px_rgba(80,220,255,0.18)]"
                   >
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={category.image}
-                        alt={category.imageAlt}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
+                    <div className="relative h-48 overflow-hidden bg-black">
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       <span className="absolute left-6 top-6 rounded-full border border-white/15 bg-black/30 px-4 py-1 text-[0.65rem] uppercase tracking-[0.32em] text-white/80 backdrop-blur">
                         {category.category}
