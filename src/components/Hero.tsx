@@ -30,22 +30,25 @@ export const Hero = () => {
   }, []);
 
   const credibilityPills = [
-    "Built: F1 Database System · Wearable Health Device",
-    "Built secure IoT health device (focus on privacy/cybersecurity)",
-    "Experience/Recognitions: Colorado Resilience · Radical AI · Teaching Assistant · EcoCAR CAV · AWS & GCA",
+    { text: "Built: F1 Database System · Wearable Health Device" },
+    { text: "Built secure IoT health device (focus on privacy/cybersecurity)" },
+    {
+      text: "Experience/Recognitions: Colorado Resilience · Radical AI · Teaching Assistant · EcoCAR CAV · AWS & GCA",
+      highlight: true,
+    },
   ];
 
   const factPills = [
     { label: "Based in", value: profile.location },
     { label: "Pronouns", value: profile.pronouns },
-    { label: "Opportunities", value: "SWE · AI · Cybersecurity · Data" },
+    { label: "Opportunities", value: "Open to SWE · AI · Cybersecurity · Data", highlight: true },
   ];
 
   return (
     <section id="home" className="relative overflow-hidden pt-28 pb-28 md:pt-36">
       <div className="container relative grid items-center gap-16 rounded-[3.5rem] border border-white/5 bg-gradient-to-br from-neon-cyan/8 via-background/55 to-neon-violet/8 p-10 shadow-[0_0_40px_rgba(0,0,0,0.2)] backdrop-blur-3xl lg:grid-cols-[minmax(0,1.45fr)_minmax(0,0.85fr)]">
         <div className="space-y-10">
-          <div className="space-y-6">
+          <div className="space-y-6 text-center md:text-left">
             <div className="space-y-3">
               <h1 className="font-heading text-balance text-4xl font-semibold leading-[1.05] text-foreground md:text-6xl lg:text-[4.25rem] lg:leading-[1.05]">
                 Musharaf Khan Pathan
@@ -54,29 +57,37 @@ export const Hero = () => {
                 AI Engineer | Software Engineer | Cybersecurity Specialist | CS Major @ IllinoisTech
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              {credibilityPills.map((pill) => (
+            <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+              {credibilityPills.map(({ text, highlight }) => (
                 <span
-                  key={pill}
-                  className="inline-flex items-center rounded-full border border-white/12 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-muted-foreground/70 backdrop-blur"
+                  key={text}
+                  className={`inline-flex items-center rounded-full border border-white/12 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-muted-foreground/70 backdrop-blur ${
+                    highlight ? "border-neon-cyan/70 text-neon-cyan/90 shadow-[0_0_20px_rgba(80,220,255,0.25)]" : ""
+                  }`}
                 >
-                  {pill}
+                  {text}
                 </span>
               ))}
             </div>
-            <p className="max-w-2xl text-base leading-relaxed text-muted-foreground/90 md:text-lg">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground/90 md:mx-0 md:text-lg">
               I blend architectural thinking with machine intelligence to design interfaces and systems that feel cinematic yet reliable. Recent work spans secure AI copilots (OpenAI &amp; Gemini), privacy-first IoT health devices, and data-heavy experiences—while mentoring and teaching at IllinoisTech.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2 md:justify-start">
             {factPills.map((fact) => (
               <span
                 key={fact.label}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-4 py-1.5 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground/70 backdrop-blur"
+                className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-4 py-1.5 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground/70 backdrop-blur ${
+                  fact.highlight ? "border-neon-cyan/70 text-neon-cyan/90 shadow-[0_0_20px_rgba(80,220,255,0.25)]" : ""
+                }`}
               >
-                <span className="text-muted-foreground/50">{fact.label}:</span>
-                <span className="text-foreground/80">{fact.value}</span>
+                <span className={`text-muted-foreground/50 ${fact.highlight ? "text-neon-cyan/60" : ""}`}>
+                  {fact.label}:
+                </span>
+                <span className={`${fact.highlight ? "font-semibold text-neon-cyan" : "text-foreground/80"}`}>
+                  {fact.value}
+                </span>
               </span>
             ))}
           </div>
@@ -126,7 +137,7 @@ export const Hero = () => {
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground/65">
               I'm open to collaborations, leadership, and technical mentoring.
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 md:justify-start">
               {socials.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
@@ -142,7 +153,7 @@ export const Hero = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="flex flex-wrap justify-center gap-4 pt-2 md:justify-start">
             {profile.metrics.map((metric) => (
               <div
                 key={metric.label}
