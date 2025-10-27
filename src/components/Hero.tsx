@@ -31,13 +31,14 @@ export const Hero = () => {
 
   const credibilityPills = [
     "Built: F1 Database System · Wearable Health Device",
-    "Experience/Recognitions: Radical AI · EcoCAR CAV · AWS & GCA",
+    "Built secure IoT health device (focus on privacy/cybersecurity)",
+    "Experience/Recognitions: Colorado Resilience · Radical AI · Teaching Assistant · EcoCAR CAV · AWS & GCA",
   ];
 
   const factPills = [
     { label: "Based in", value: profile.location },
     { label: "Pronouns", value: profile.pronouns },
-    { label: "Opportunities", value: "SWE · AI · Data" },
+    { label: "Opportunities", value: "SWE · AI · Cybersecurity · Data" },
   ];
 
   return (
@@ -50,7 +51,7 @@ export const Hero = () => {
                 Musharaf Khan Pathan
               </h1>
               <p className="text-balance text-lg font-medium text-muted-foreground/85 md:text-2xl">
-                AI Engineer & CS Major @ IIT — building immersive, resilient systems. Open to SWE, AI, and Data roles.
+                AI Engineer | Software Engineer | Cybersecurity Specialist | CS Major @ IllinoisTech
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -64,7 +65,7 @@ export const Hero = () => {
               ))}
             </div>
             <p className="max-w-2xl text-base leading-relaxed text-muted-foreground/90 md:text-lg">
-              I blend architectural thinking with machine intelligence to design interfaces and systems that feel cinematic yet reliable. Recent work spans AI copilots (OpenAI &amp; Gemini), health-tech prototypes, and data-heavy experiences—while mentoring and teaching at IIT.
+              I blend architectural thinking with machine intelligence to design interfaces and systems that feel cinematic yet reliable. Recent work spans secure AI copilots (OpenAI &amp; Gemini), privacy-first IoT health devices, and data-heavy experiences—while mentoring and teaching at IllinoisTech.
             </p>
           </div>
 
@@ -110,7 +111,7 @@ export const Hero = () => {
                   className="w-full rounded-full border-white/20 bg-black/25 text-muted-foreground transition hover:text-foreground sm:w-auto"
                 >
                   <a
-                    href="/assets/resume/Musharaf_Khan_Pathan_Resume.pdf"
+                    href="/assets/resume/MUSHARAF-KHAN-PATHAN-1.pdf"
                     download
                     target="_blank"
                     rel="noopener noreferrer"
@@ -122,6 +123,9 @@ export const Hero = () => {
                 </Button>
               </div>
             </div>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground/65">
+              I'm open to collaborations, leadership, and technical mentoring.
+            </p>
             <div className="flex flex-wrap gap-2">
               {socials.map(({ icon: Icon, label, href }) => (
                 <a

@@ -3,9 +3,9 @@ export const profile = {
   pronouns: "He/Him",
   tagline: "Crafting dreamlike, high-impact experiences.",
   headline:
-    "Creative technologist & CS major @ Illinois Tech — building immersive systems that feel effortless.",
+    "Creative technologist & CS major @ IllinoisTech — building immersive systems that feel effortless.",
   location: "Chicago, Illinois",
-  openTo: "Open to SWE, AI, Data roles",
+  openTo: "Open to SWE, AI, Cybersecurity, Data roles",
   email: "mpathan2@hawk.illinoistech.edu",
   avatarUrl: "/assets/images/musharaf-khan-pathan.jpg",
   phone: "(480) 996-7675",
@@ -14,7 +14,7 @@ export const profile = {
   aboutIntro:
     "I blend architectural thinking with machine intelligence to design interfaces that feel cinematic while staying grounded in resilient engineering.",
   about:
-    "I'm a Computer Science major at Illinois Institute of Technology with a minor in Architecture. I love pairing poetic visuals with systems that can handle the pressure—whether that's fine-tuning AI copilots, guiding data-heavy experiences, or shipping health-tech prototypes. I've contributed to Radical AI, coached 200+ peers through IIT workshops, and earned recognition from Intel, AWS, and The GRAMMYs. I'm currently exploring internships and research in software, AI, data, and immersive product design.",
+    "I'm a Computer Science major at Illinois Institute of Technology with a minor in Architecture. I love pairing poetic visuals with systems that can handle the pressure—whether that's fine-tuning AI copilots, guiding data-heavy experiences, or shipping health-tech prototypes. I've contributed to Radical AI, coached 200+ peers through IllinoisTech workshops, and earned recognition from Intel, AWS, and The GRAMMYs. I'm currently exploring internships and research in software, AI, data, and immersive product design.",
   focus: [
     "Designing interactive stories that help people navigate complex decisions with clarity.",
     "Building calm AI assistants that feel personal, transparent, and reliable from day one.",
@@ -22,7 +22,7 @@ export const profile = {
   ],
   availability: {
     status: "Currently crafting",
-    detail: "Prototyping immersive AI experiences while mentoring peers and co-leading design jams at IIT.",
+    detail: "Prototyping immersive AI experiences while mentoring peers and co-leading design jams at IllinoisTech.",
   },
   currentSpotlight: {
     label: "Latest drop",
@@ -41,6 +41,6 @@ export const profile = {
   metrics: [
     { label: "Dream Projects", value: "5+" },
     { label: "Team Workshops", value: "40+" },
-    { label: "Happy Collaborators", value: "200+" },
+    { label: "Happy Collaborators", value: "1500+" },
   ],
 };
