@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import LetterGlitch from "@/components/LetterGlitch";
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import Experience from "./pages/Experience";
@@ -22,16 +21,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="pointer-events-none fixed inset-0 -z-20">
-          <LetterGlitch
-            glitchSpeed={50}
-            centerVignette
-            outerVignette={false}
-            smooth
-            className="h-full w-full"
-          />
-        </div>
-        <div className="pointer-events-none fixed inset-0 -z-30 bg-[radial-gradient(130%_90%_at_50%_25%,rgba(0,0,0,var(--vignette-top)),rgba(0,0,0,var(--vignette-bottom))_70%)]" />
+        <div className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(130%_90%_at_50%_25%,rgba(0,0,0,var(--vignette-top)),rgba(0,0,0,var(--vignette-bottom))_70%)]" />
         <Navbar />
         <Routes>
           <Route path="/" element={<Index />} />

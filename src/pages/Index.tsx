@@ -257,6 +257,41 @@ const Index = () => {
           </div>
         </section>
 
+        <section id="education" className="relative">
+          <div className="container space-y-10">
+            <div className="flex flex-wrap items-start justify-between gap-6">
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">Foundations</span>
+                <h2 className="section-heading">Education</h2>
+                <p className="text-sm text-muted-foreground/80 max-w-2xl">
+                  Grounded in rigorous computer science paired with architectural thinking for immersive products.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/6 via-background/70 to-white/10 p-10 backdrop-blur-2xl">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(80,220,255,0.16),_transparent_60%)]" />
+                <div className="relative space-y-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-xl font-semibold text-foreground">Illinois Institute of Technology</h3>
+                    <span className="rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                      Chicago, IL
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground/85">B.S. Computer Science, Minor in Architecture</p>
+                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.28em] text-muted-foreground/70">
+                    <span>GPA: 3.8/4.0</span>
+                    <span className="hidden sm:inline-block h-1 w-1 rounded-full bg-muted-foreground/50" />
+                    <span>Expected May 2026</span>
+                  </div>
+                  <p className="pt-2 text-sm font-medium text-neon-cyan">Dean&apos;s List Scholar (×4)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="certifications" className="relative">
           <div className="container space-y-10">
             <div className="flex flex-wrap items-start justify-between gap-6">
