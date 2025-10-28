@@ -1,6 +1,20 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, Mail } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Activity,
+  ArrowRight,
+  Award,
+  Cpu,
+  Database,
+  Globe2,
+  Layers,
+  Mail,
+  MessageSquare,
+  ShieldCheck,
+  Trophy,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/Hero";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -15,11 +29,43 @@ import { skills } from "@/data/skills";
 const Index = () => {
   const location = useLocation();
 
-  const heroFacts = [
-    { label: "Based in", value: profile.location },
-    { label: "Pronouns", value: profile.pronouns },
-    { label: "Opportunities", value: profile.openTo.replace(/^Open to\s*/i, "") },
-  ];
+  const emphasisTokens = ["40+", "200+", "Radical AI", "Intel", "AWS", "GRAMMYs", "F1", "IoT"];
+  const escapeRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const emphasisRegex = new RegExp(`(${emphasisTokens.map(escapeRegex).join("|")})`, "gi");
+  const renderWithEmphasis = (text: string) =>
+    text.split(emphasisRegex).map((segment, index) => {
+      const isMatch = emphasisTokens.some((token) => segment.toLowerCase() === token.toLowerCase());
+      return isMatch ? (
+        <span key={`${segment}-${index}`} className="text-neon-cyan font-semibold">
+          {segment}
+        </span>
+      ) : (
+        <span key={`${segment}-${index}`}>{segment}</span>
+      );
+    });
+
+  const impactIcons = [Users, Cpu, Activity, Database, Award] as const;
+  const impactHighlights = (profile.aboutImpact ?? []).map((highlight, index) => ({
+    highlight,
+    Icon: impactIcons[index] ?? Award,
+  }));
+  const specialties = profile.aboutSpecialties ?? [];
+  const quickStats = profile.quickStats ?? [];
+  const languages = profile.languages ?? [];
+  const signalIconMap: Record<string, LucideIcon> = {
+    "Architectural mindset": Layers,
+    "Community builder": Users,
+    "Multi-industry impact": Globe2,
+    "Security first": ShieldCheck,
+    Recognition: Trophy,
+  };
+  const signatureSignals =
+    profile.signal?.map((signal) => ({
+      ...signal,
+      Icon: signalIconMap[signal.label] ?? Trophy,
+    })) ?? [];
+  const cardBase =
+    "rounded-[1.75rem] border border-white/12 bg-black/25 p-6 md:p-7 backdrop-blur-2xl shadow-[0_24px_60px_rgba(0,0,0,0.35)]";
 
   const skillHighlights = skills.slice(0, 3);
   const featuredProjects = projects.slice(0, 3);
@@ -53,73 +99,150 @@ const Index = () => {
           <div className="container">
             <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-2xl">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(80,220,255,0.12),_transparent_62%)]" />
-              <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-                <div className="space-y-8 p-10 lg:p-12">
-                  <div className="flex flex-wrap items-center gap-4">
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+                <div className="space-y-7 p-8 lg:p-14 xl:p-16">
+                  <div className="flex flex-wrap items-center gap-4 animate-in fade-in slide-in-from-bottom-4">
                     <h2 className="section-heading">About Musharaf Khan Pathan</h2>
                     <div className="h-px flex-1 bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
                   </div>
-                  <p className="text-base leading-relaxed text-muted-foreground/85">{profile.about}</p>
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    {heroFacts.map((fact) => (
-                      <div
-                        key={fact.label}
-                        className="rounded-2xl border border-white/10 bg-black/20 p-5 text-left backdrop-blur-xl transition hover:border-neon-cyan/40"
-                      >
-                        <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">
-                          {fact.label}
-                        </p>
-                        <p className="mt-2 text-sm font-medium text-foreground">{fact.value}</p>
-                      </div>
-                    ))}
+                  <div className={`${cardBase} animate-in fade-in slide-in-from-bottom-6`}>
+                    <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">Bio</span>
+                    <div className="mt-3 space-y-3 text-base leading-relaxed text-muted-foreground/85">
+                      <p className="text-lg font-medium text-foreground">{profile.aboutIntro}</p>
+                      <p>{profile.aboutBio}</p>
+                    </div>
                   </div>
-                  <div className="mt-8 space-y-4">
+                  <div className={`${cardBase} animate-in fade-in slide-in-from-bottom-8`}>
                     <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">
-                      Signals
+                      Quantified impact
                     </span>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {profile.signal.map((trait) => (
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      {impactHighlights.map(({ highlight, Icon }) => (
                         <div
-                          key={trait.label}
-                          className="rounded-2xl border border-white/10 bg-black/20 p-6 backdrop-blur-xl"
+                          key={highlight}
+                          className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur-xl transition hover:border-neon-cyan/40 hover:shadow-[0_0_35px_rgba(80,220,255,0.18)]"
                         >
-                          <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">
-                            {trait.label}
-                          </p>
-                          <p className="mt-3 text-sm leading-relaxed text-muted-foreground/90">
-                            {trait.detail}
+                          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-neon-cyan/10 text-neon-cyan transition group-hover:bg-neon-cyan/20">
+                            <Icon className="h-5 w-5" />
+                          </div>
+                          <p className="text-sm font-semibold text-foreground/95">
+                            {renderWithEmphasis(highlight)}
                           </p>
                         </div>
                       ))}
                     </div>
                   </div>
+                  <div className={`${cardBase} animate-in fade-in slide-in-from-bottom-10`}>
+                    <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">Specialties</span>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {specialties.map((skill) => (
+                        <span key={skill} className="group relative inline-flex">
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_rgba(80,220,255,0.5),_transparent_70%)] opacity-40 blur-md transition duration-300 group-hover:opacity-75 group-hover:blur-lg"
+                          />
+                          <span
+                            className="relative inline-flex items-center rounded-full border border-neon-cyan/35 bg-black/35 px-4 py-2 text-[0.7rem] uppercase tracking-[0.28em] text-neon-cyan shadow-[0_0_24px_rgba(80,220,255,0.28)] transition duration-300 group-hover:border-neon-cyan/60 group-hover:text-white"
+                          >
+                            {skill}
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2 animate-in fade-in slide-in-from-bottom-12">
+                    {signatureSignals.map(({ label, detail, Icon }) => (
+                      <div
+                        key={label}
+                        className={`${cardBase} flex flex-col gap-3 transition hover:border-neon-cyan/45 hover:shadow-[0_0_35px_rgba(80,220,255,0.18)]`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neon-cyan/12 text-neon-cyan">
+                            <Icon className="h-5 w-5" />
+                          </div>
+                          <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">{label}</p>
+                        </div>
+                        <p className="text-sm leading-relaxed text-muted-foreground/90">
+                          {renderWithEmphasis(detail)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="relative flex flex-col justify-between border-t border-white/10 bg-black/25 lg:border-l lg:border-t-0">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <p className="text-[0.65rem] uppercase tracking-[0.32em] text-white/70">
-                        Studio snapshot
-                      </p>
-                      <p className="mt-3 text-sm leading-relaxed text-white/85">
-                        {profile.availability.detail}
+                <div className="flex flex-col gap-6 border-t border-white/10 bg-black/25 px-6 py-8 lg:border-l lg:border-t-0 lg:px-10 xl:px-12 animate-in fade-in slide-in-from-bottom-8">
+                  <div className="relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2.25rem] border border-white/12 bg-gradient-to-br from-neon-cyan/15 via-black/45 to-neon-violet/20 shadow-[0_28px_70px_rgba(0,0,0,0.45)]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(80,220,255,0.35),_transparent_65%)]" />
+                    <div className="relative z-10 p-10 xl:p-12">
+                      <p className="text-[0.65rem] uppercase tracking-[0.32em] text-neon-cyan/80">Studio snapshot</p>
+                      <p className="mt-4 text-base leading-relaxed text-white/85">
+                        {renderWithEmphasis(profile.availability.detail)}
                       </p>
                     </div>
                   </div>
-                  <div className="grid gap-4 p-8">
-                    <div className="rounded-2xl border border-white/15 bg-black/25 p-6 backdrop-blur-xl">
-                      <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground/65">
-                        Latest drop
-                      </p>
-                      <p className="mt-3 text-base font-medium text-foreground">
-                        {profile.currentSpotlight.description}
+                  <div className="space-y-6">
+                    <div className={`${cardBase} animate-in fade-in slide-in-from-bottom-12`}>
+                      <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">
+                        Quick stats
+                      </span>
+                      <div className="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
+                        {quickStats.map((stat) => (
+                          <div
+                            key={stat.label}
+                            className="rounded-2xl border border-white/10 bg-black/20 p-4 text-left backdrop-blur-xl"
+                          >
+                            <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">
+                              {stat.label}
+                            </p>
+                            <p className="mt-2 text-sm font-semibold text-foreground">{stat.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className={`${cardBase} animate-in fade-in slide-in-from-bottom-12 flex flex-col gap-4`}>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">Languages</span>
+                        <MessageSquare className="h-4 w-4 text-neon-cyan" />
+                      </div>
+                      <div className="space-y-4">
+                        {languages.map((language) => (
+                          <div key={language.name} className="space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="font-medium text-foreground">{language.name}</span>
+                              <span className="text-muted-foreground/70">{language.fluency}</span>
+                            </div>
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                              <div
+                                className="h-full animate-gradient-bar bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-cyan"
+                                style={{ width: `${language.proficiency}%` }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${cardBase} animate-in fade-in slide-in-from-bottom-14 bg-gradient-to-br from-neon-cyan/12 via-background/45 to-neon-violet/15`}
+                  >
+                    <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">Opportunities</span>
+                    <div className="mt-4">
+                      <span className="inline-flex items-center gap-2 rounded-full border border-neon-cyan/50 bg-black/40 px-4 py-1 text-[0.65rem] uppercase tracking-[0.32em] text-neon-cyan shadow-[0_0_25px_rgba(80,220,255,0.2)]">
+                        {profile.aboutOpportunities.pill}
+                      </span>
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground/85">
+                        {profile.aboutOpportunities.detail}
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-neon-cyan/40 bg-neon-cyan/15 p-6 text-left text-neon-cyan backdrop-blur-xl">
-                      <p className="text-xs uppercase tracking-[0.28em]">Currently crafting</p>
-                      <p className="mt-3 text-sm text-neon-cyan/90">{profile.availability.status}</p>
-                    </div>
+                  </div>
+                  <div className="rounded-[2.25rem] border border-neon-cyan/50 bg-neon-cyan/12 p-8 text-left text-neon-cyan backdrop-blur-2xl shadow-[0_0_48px_rgba(80,220,255,0.28)]">
+                    <p className="text-xs uppercase tracking-[0.32em]">Currently crafting</p>
+                    <p className="mt-4 text-base font-semibold text-neon-cyan/95">
+                      {renderWithEmphasis(profile.availability.status)}
+                    </p>
+                    <p className="mt-4 text-sm leading-relaxed text-neon-cyan/80">
+                      {renderWithEmphasis(profile.aboutTagline)}
+                    </p>
                   </div>
                 </div>
               </div>

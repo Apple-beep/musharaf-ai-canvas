@@ -141,7 +141,6 @@ export const Navbar = () => {
                     key={link.to}
                     to={link.to}
                     onClick={(event) => handleNavClick(event, link)}
-                    onClick={(event) => handleNavClick(event, link)}
                     className={`${baseClasses} ${isActive ? activeClasses : ""}`}
                     aria-current={isActive ? "page" : undefined}
                   >
