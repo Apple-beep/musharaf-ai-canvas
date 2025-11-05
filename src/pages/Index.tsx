@@ -26,6 +26,7 @@ import { projects } from "@/data/projects";
 import { experience } from "@/data/experience";
 import { certifications } from "@/data/certs";
 import { skills } from "@/data/skills";
+import { getSkillIcon } from "@/lib/skill-icons";
 
 const Index = () => {
   const location = useLocation();
@@ -276,23 +277,38 @@ const Index = () => {
               {skills.map((category) => (
                 <TabsContent key={category.category} value={category.category} className="mt-0">
                   <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {category.skills.map((skill) => (
-                      <div
-                        key={skill}
-                        className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition hover:border-neon-cyan/45 hover:shadow-[0_0_38px_rgba(80,220,255,0.22)]"
-                      >
-                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-neon-cyan/15 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-                        <div className="relative flex items-center justify-between gap-6">
-                          <div className="space-y-2">
-                            <h3 className="text-base font-semibold text-foreground">{skill}</h3>
-                            <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">{category.category}</p>
+                    {category.skills.map((skill) => {
+                      const iconSrc = getSkillIcon(skill);
+                      return (
+                        <div
+                          key={skill}
+                          className="group relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/10 p-6 backdrop-blur-xl transition hover:border-neon-cyan/55 hover:bg-white/15 hover:shadow-[0_0_42px_rgba(80,220,255,0.28)]"
+                        >
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-neon-cyan/22 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                          <div className="relative flex items-center justify-between gap-6">
+                            <div className="space-y-2">
+                              <h3 className="text-base font-semibold text-foreground">{skill}</h3>
+                              <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">
+                                {category.category}
+                              </p>
+                            </div>
+                            <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-neon-cyan/50 bg-neon-cyan/20 text-base font-semibold uppercase text-neon-cyan shadow-[0_0_22px_rgba(80,220,255,0.35)] transition duration-300 group-hover:border-neon-cyan/80 group-hover:bg-neon-cyan/35 group-hover:text-white">
+                              {iconSrc ? (
+                                <img
+                                  src={iconSrc}
+                                  alt=""
+                                  aria-hidden="true"
+                                  loading="lazy"
+                                  className="h-8 w-8"
+                                />
+                              ) : (
+                                getSkillInitial(skill)
+                              )}
+                            </span>
                           </div>
-                          <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-neon-cyan/35 bg-neon-cyan/10 text-sm font-semibold uppercase text-neon-cyan transition duration-300 group-hover:border-neon-cyan/60 group-hover:bg-neon-cyan/20 group-hover:text-white">
-                            {getSkillInitial(skill)}
-                          </span>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </TabsContent>
               ))}
