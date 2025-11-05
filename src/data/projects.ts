@@ -22,7 +22,7 @@ export const projects: Project[] = [
     outcome: "Reduced response time by ~50% (prototype).",
     tags: ["Python", "IoT", "ESP32", "PoE", "Sensors", "Realtime UI"],
     category: ["Systems", "AI/ML"],
-    image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=80",
+    image: "musharaf-ai-canvas/public/placeholder.svg",
     imageAlt: "Futuristic control room glowing with cyan light",
   },
   {

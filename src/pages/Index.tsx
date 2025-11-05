@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Hero } from "@/components/Hero";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
@@ -67,7 +68,11 @@ const Index = () => {
   const cardBase =
     "rounded-[1.75rem] border border-white/12 bg-black/25 p-6 md:p-7 backdrop-blur-2xl shadow-[0_24px_60px_rgba(0,0,0,0.35)]";
 
-  const skillHighlights = skills.slice(0, 3);
+  const defaultSkillCategory = skills[0]?.category ?? "Languages";
+  const getSkillInitial = (skill: string) => {
+    const match = skill.trim().match(/[A-Za-z0-9]/);
+    return match ? match[0]?.toUpperCase() ?? "" : "";
+  };
   const featuredProjects = projects.slice(0, 3);
   const primaryExperience = experience.slice(0, 4);
   const marqueeCerts = [...certifications, ...certifications];
@@ -251,45 +256,47 @@ const Index = () => {
         </section>
 
         <section id="skills" className="relative">
-          <div className="container space-y-10">
-            <div className="mx-auto max-w-3xl space-y-3 text-center">
-              <span className="text-xs uppercase tracking-[0.32em] text-muted-foreground/70">
-                Dream stack
-              </span>
-              <h2 className="section-heading">Signature Capabilities</h2>
-              <p className="text-sm text-muted-foreground/75">
-                A blend of applied AI, resilient systems, and visual storytelling. Here are a few spaces I love working
-                in.
-              </p>
+          <div className="container space-y-12">
+            <div className="relative mx-auto max-w-3xl space-y-3 text-center">
+              <div className="pointer-events-none absolute inset-x-10 -top-20 h-40 rounded-full bg-[radial-gradient(circle_at_top,_rgba(80,220,255,0.28),_transparent_70%)] opacity-60 blur-3xl" />
+              <h2 className="relative section-heading">My Skills</h2>
             </div>
-            <div className="grid gap-6 lg:grid-cols-3">
-              {skillHighlights.map((category) => {
-                const previewSkills = category.skills.slice(0, 6);
-                return (
-                  <div
+            <Tabs defaultValue={defaultSkillCategory} className="space-y-8">
+              <TabsList className="mx-auto flex h-auto max-w-4xl flex-wrap justify-center gap-2 rounded-full border border-white/10 bg-black/30 p-2 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground/70 backdrop-blur">
+                {skills.map((category) => (
+                  <TabsTrigger
                     key={category.category}
-                    className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-2xl transition hover:border-neon-cyan/40 hover:shadow-[0_0_45px_rgba(80,220,255,0.18)]"
+                    value={category.category}
+                    className="rounded-full border border-transparent px-4 py-2 text-xs font-semibold tracking-[0.24em] text-muted-foreground/70 transition data-[state=active]:border-neon-cyan/40 data-[state=active]:bg-neon-cyan/10 data-[state=active]:text-neon-cyan data-[state=active]:shadow-[0_0_25px_rgba(80,220,255,0.18)]"
                   >
-                    <div className="relative h-48 overflow-hidden bg-black">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <span className="absolute left-6 top-6 rounded-full border border-white/15 bg-black/30 px-4 py-1 text-[0.65rem] uppercase tracking-[0.32em] text-white/80 backdrop-blur">
-                        {category.category}
-                      </span>
-                    </div>
-                    <div className="space-y-4 p-6">
-                      <p className="text-sm text-muted-foreground/80">{previewSkills.join(" · ")}</p>
-                      <Link
-                        to="/skills"
-                        className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-neon-cyan transition hover:text-neon-violet"
+                    {category.category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              {skills.map((category) => (
+                <TabsContent key={category.category} value={category.category} className="mt-0">
+                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                    {category.skills.map((skill) => (
+                      <div
+                        key={skill}
+                        className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition hover:border-neon-cyan/45 hover:shadow-[0_0_38px_rgba(80,220,255,0.22)]"
                       >
-                        Explore full toolkit
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </div>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-neon-cyan/15 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                        <div className="relative flex items-center justify-between gap-6">
+                          <div className="space-y-2">
+                            <h3 className="text-base font-semibold text-foreground">{skill}</h3>
+                            <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground/60">{category.category}</p>
+                          </div>
+                          <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-neon-cyan/35 bg-neon-cyan/10 text-sm font-semibold uppercase text-neon-cyan transition duration-300 group-hover:border-neon-cyan/60 group-hover:bg-neon-cyan/20 group-hover:text-white">
+                            {getSkillInitial(skill)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                );
-              })}
-            </div>
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
         </section>
 

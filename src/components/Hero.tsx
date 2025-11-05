@@ -30,8 +30,6 @@ export const Hero = () => {
   }, []);
 
   const credibilityPills = [
-    { text: "Built: F1 Database System · Wearable Health Device" },
-    { text: "Built secure IoT health device (focus on privacy/cybersecurity)" },
     {
       text: "Experience/Recognitions: Colorado Resilience · Radical AI · Teaching Assistant · EcoCAR CAV · AWS & GCA",
       highlight: true,
